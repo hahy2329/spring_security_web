@@ -26,8 +26,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		
-		String id = (String)authentication.getPrincipal();
-		String password = (String)authentication.getCredentials();
+		String id = (String)authentication.getPrincipal(); //보호받는 Resource에 접근하는 대상 쉽게 말해, id
+		String password = (String)authentication.getCredentials(); //Resource에 접근하는 대상의 비밀번호
 		//form에서 전달 된, name태그 설정이 username-parameter, password-parameter로 되있는 값을 읽어온다.
 		
 		if(id.equals("fail")) {	
@@ -38,6 +38,13 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		user.setId(id);
 		user.setPw(password);
 		
+		/*
+		 * GrantedAuthority는 현재 사용자(Principal)가 가지고 있는 권한을 의미하며, ROLE_ADMIN이나, ROLE_USER같이
+		 * ROLE_*의 형태로 사용한다. GrantedAutority 객체는 UserDetailsService에 의해 불러올 수 있고,특정 자원에 대한 
+		 * 권한이 있는지를 검사하여 접근 허용 여부를 결정한다.
+		 * 
+		 * 
+		 * */
 		List<GrantedAuthority> roles = new ArrayList<GrantedAuthority>();
 		roles.add(new SimpleGrantedAuthority("ROLE_USER"));
 		UsernamePasswordAuthenticationToken result = new UsernamePasswordAuthenticationToken(id, password, roles);
