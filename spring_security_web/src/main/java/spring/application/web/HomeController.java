@@ -4,12 +4,18 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import spring.application.web.dto.User;
 
 /**
  * Handles requests for the application home page.
@@ -34,6 +40,29 @@ public class HomeController {
 		model.addAttribute("serverTime", formattedDate );
 		
 		return "home";
+	}
+	
+	@RequestMapping("/login")
+	public String login() {
+		return "login";
+	}
+	
+	@RequestMapping("/loginSuccess")
+	public String loginSuccess(HttpSession session, HttpServletRequest request) {
+		
+		//CustomAuthenticationProvider에서 set한 값을 로드 
+		User user = (User)SecurityContextHolder.getContext().getAuthentication().getDetails();
+		
+		//세션 설정
+		session.setAttribute("id", user.getId());
+		session.setAttribute("pw", user.getPw());
+		
+		return "loginSuccess";
+	}
+	
+	@RequestMapping("/loginFail")
+	public String loginFali() {
+		return "loginFail";
 	}
 	
 }

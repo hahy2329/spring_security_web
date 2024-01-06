@@ -47,6 +47,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		return authentication.equals(UsernamePasswordAuthenticationToken.class);
 	}
 	
+	//Spring Security의 AuthenticationProvider을 구현한 클래스로  security-context에 provider로 등록 후 인증 절차를 구현 
+	//login view에서 login-processing-url로의 form action 진행 시 해당 클래스의 supports() > authenticate()순으로 인증 절차 진행
 	
 	
 	
