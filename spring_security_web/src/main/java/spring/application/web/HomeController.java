@@ -51,6 +51,7 @@ public class HomeController {
 	public String loginSuccess(HttpSession session, HttpServletRequest request) {
 		
 		//CustomAuthenticationProvider에서 set한 값을 로드 
+		//즉, 프로젝트 내 어디서든 인증이 완료된 사용자 정보를 호출할 수 있도록 해주는 클래스이다.
 		User user = (User)SecurityContextHolder.getContext().getAuthentication().getDetails();
 		
 		//세션 설정

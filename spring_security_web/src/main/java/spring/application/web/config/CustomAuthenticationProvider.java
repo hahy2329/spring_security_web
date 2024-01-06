@@ -12,6 +12,14 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import spring.application.web.dto.User;
 
+/*
+ * 실질적으로 인증 절차가 이뤄지는 곳이다.
+ * 서비스단으로부터 db에 저장된 사용자 정보와 비교 후 넘어온 리턴 객체를 가지고 
+ * Authentication 객체를 생성하거나 인증되지 못하는 경우 예외를 넘겨주는 역할을 한다.
+ * (해당 코딩에서는 DB를 따로 구현을 안했다.)
+ * 
+ * */
+
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
 	
