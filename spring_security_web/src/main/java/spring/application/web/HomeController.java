@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -64,6 +65,25 @@ public class HomeController {
 	@RequestMapping("/loginFail")
 	public String loginFali() {
 		return "loginFail";
+	}
+	
+	@GetMapping("/myPage")
+	public String myPage(HttpSession session) {
+		
+		User user = (User)SecurityContextHolder.getContext().getAuthentication().getDetails();
+		
+		if(user != null) {
+			
+			session.setAttribute("id", user.getId());
+			session.setAttribute("pw", user.getPw());
+			
+			return "myPage";
+		}else {
+			
+			return "loginFail";
+			
+		}
+		
 	}
 	
 }
